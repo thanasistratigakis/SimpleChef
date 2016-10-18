@@ -19,9 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         (UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])).tintColor = UIColor.white
         
+        
+        
+        
         if let window = window {
             let NC = UINavigationController()
-            let mainController = SearchViewController()
+            NC.navigationBar.isTranslucent = false
+            let mainController = RecipeViewController()
             NC.addChildViewController(mainController)
             window.rootViewController = NC
             window.makeKeyAndVisible()

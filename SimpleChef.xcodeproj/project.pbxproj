@@ -15,6 +15,7 @@
 		ED6436AA1DB03C5000D587F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED6436A81DB03C5000D587F6 /* LaunchScreen.storyboard */; };
 		ED6436B51DB03C5000D587F6 /* SimpleChefTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6436B41DB03C5000D587F6 /* SimpleChefTests.swift */; };
 		ED6436C01DB03C5000D587F6 /* SimpleChefUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6436BF1DB03C5000D587F6 /* SimpleChefUITests.swift */; };
+		ED996CE41DB6C803004EDF90 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED996CE31DB6C803004EDF90 /* RecipeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		ED6436BB1DB03C5000D587F6 /* SimpleChefUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleChefUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6436BF1DB03C5000D587F6 /* SimpleChefUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleChefUITests.swift; sourceTree = "<group>"; };
 		ED6436C11DB03C5000D587F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED996CE31DB6C803004EDF90 /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			children = (
 				ED64369F1DB03C5000D587F6 /* AppDelegate.swift */,
 				ED52561D1DB3427900A89501 /* SearchViewController.swift */,
+				ED996CE31DB6C803004EDF90 /* RecipeViewController.swift */,
 				ED6436A31DB03C5000D587F6 /* Main.storyboard */,
 				ED6436A61DB03C5000D587F6 /* Assets.xcassets */,
 				ED6436A81DB03C5000D587F6 /* LaunchScreen.storyboard */,
@@ -339,6 +342,7 @@
 			files = (
 				ED52561E1DB3427900A89501 /* SearchViewController.swift in Sources */,
 				ED6436A01DB03C5000D587F6 /* AppDelegate.swift in Sources */,
+				ED996CE41DB6C803004EDF90 /* RecipeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

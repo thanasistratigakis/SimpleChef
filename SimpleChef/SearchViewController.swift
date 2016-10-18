@@ -91,8 +91,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension SearchViewController: UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
-    
-    
     func updateSearchResults(for searchController: UISearchController) {
         //nothing
     }
