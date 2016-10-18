@@ -30,12 +30,11 @@ class RecipeViewController: UIViewController {
         view.backgroundColor = UIColor.yellow
         return view
     }()
-    let instuctionsView: UIView = {
+    let instructionsView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.purple
         return view
     }()
-    
     
     let ingredientsLabel: UILabel = {
         let label = UILabel()
@@ -44,10 +43,18 @@ class RecipeViewController: UIViewController {
         return label
     }()
     
+    let instructionsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Instructions"
+        label.textColor = #colorLiteral(red: 0.8585246801, green: 0.3874579072, blue: 0.4668917656, alpha: 1)
+        return label
+    }()
+    
     // Reference to all ingredient labels
     var ingredientLabelsArray: [UILabel] = []
     
-
+    // Reference to all instruction textViews
+    var instructionsTextViewArray: [UITextView] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,14 +93,14 @@ class RecipeViewController: UIViewController {
         setupIngredientsView()
         
         // Instructions View
-        self.informationView.addSubview(instuctionsView)
-        instuctionsView.snp.makeConstraints { (make) in
+        self.informationView.addSubview(instructionsView)
+        instructionsView.snp.makeConstraints { (make) in
             make.top.equalTo(ingredientsView.snp.bottom)
             make.left.equalTo(informationView.snp.left)
             make.right.equalTo(informationView.snp.right)
             make.height.equalTo(150)
         }
-    
+        setupInstructionsView()
     }
     
     func setupIngredientsView() {
@@ -107,7 +114,6 @@ class RecipeViewController: UIViewController {
         createIngredientLabel(ingredient: "Bacon")
         createIngredientLabel(ingredient: "Ham")
         print(ingredientLabelsArray)
-        
     }
     
     func createIngredientLabel(ingredient: String) {
@@ -130,7 +136,46 @@ class RecipeViewController: UIViewController {
                 make.right.equalTo(self.ingredientsLabel.snp.right)
             })
         }
+    }
+    
+    
+    func setupInstructionsView() {
+        self.instructionsView.addSubview(instructionsLabel)
+        instructionsLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(instructionsView.snp.top).offset(8)
+            make.left.equalTo(instructionsView.snp.left).offset(14)
+            make.right.equalTo(instructionsView.snp.right)
+        }
+        createInstructionsTextView(instruction: "Cook the Eggs")
+        createInstructionsTextView(instruction: "Defrost the Bacon")
+        createInstructionsTextView(instruction: "Slice the Ham")
+//        print(instructionsTextViewArray)
         
+    }
+    
+    func createInstructionsTextView(instruction: String) {
+        let textView = UITextView()
+        textView.text = instruction
+        textView.backgroundColor = UIColor.clear
+        instructionsView.addSubview(textView)
+        instructionsTextViewArray.append(textView)
+        if self.instructionsTextViewArray.count <= 1 {
+            textView.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.instructionsLabel.snp.bottom).offset(0)
+                make.left.equalTo(self.instructionsLabel.snp.left)
+                make.right.equalTo(self.instructionsLabel.snp.right)
+                make.height.equalTo(30)
+            })
+        } else {
+            textView.snp.makeConstraints({ (make) in
+                //make.top.equalTo(ingredientLabelsArray[ingredientLabelsArray.count - 1].snp.bottom).offset(4)
+                
+                make.top.equalTo(self.instructionsLabel.snp.bottom).offset(25 * CGFloat(instructionsTextViewArray.count - 1))
+                make.left.equalTo(self.instructionsLabel.snp.left)
+                make.right.equalTo(self.instructionsLabel.snp.right)
+                make.height.equalTo(30)
+            })
+        }
     }
     
 
