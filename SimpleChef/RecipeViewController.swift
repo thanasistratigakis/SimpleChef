@@ -10,6 +10,10 @@ import UIKit
 
 class RecipeViewController: UIViewController {
     
+    // var recipe: Recipe?
+    var ingredients: [String] = []
+    var instructions: [String] = []
+    
     
     // Recipe Image UIElements
     let recipeImage: UIImageView = {
@@ -55,11 +59,23 @@ class RecipeViewController: UIViewController {
     
     // Reference to all instruction textViews
     var instructionsTextViewArray: [UITextView] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        addData()
         setupViews()
-
+    }
+    
+    func addData() {
+        // Ingredients test data
+        ingredients.append("Eggs")
+        ingredients.append("Bacon")
+        ingredients.append("Cheese")
+        // Instructions test data
+        instructions.append("Crack all the eggs")
+        instructions.append("Fry the bacon")
+        instructions.append("Set oven to 400° and then add eggs")
+        instructions.append("Mix all the dry ingredients then wet")
     }
     
     func setupViews() {
@@ -92,6 +108,11 @@ class RecipeViewController: UIViewController {
         }
         setupIngredientsView()
         
+        // udate size after adding every ingredient
+        ingredientsView.snp.updateConstraints { (make) in
+            make.height.equalTo((25 * 3) + 30)
+        }
+        
         // Instructions View
         self.informationView.addSubview(instructionsView)
         instructionsView.snp.makeConstraints { (make) in
@@ -110,10 +131,11 @@ class RecipeViewController: UIViewController {
             make.left.equalTo(ingredientsView.snp.left).offset(14)
             make.right.equalTo(ingredientsView.snp.right)
         }
-        createIngredientLabel(ingredient: "Eggs")
-        createIngredientLabel(ingredient: "Bacon")
-        createIngredientLabel(ingredient: "Ham")
-        print(ingredientLabelsArray)
+        
+        // Create a label for every ingredient in the ingredient array
+        for ingredient in ingredients {
+            createIngredientLabel(ingredient: ingredient)
+        }
     }
     
     func createIngredientLabel(ingredient: String) {
@@ -146,11 +168,11 @@ class RecipeViewController: UIViewController {
             make.left.equalTo(instructionsView.snp.left).offset(14)
             make.right.equalTo(instructionsView.snp.right)
         }
-        createInstructionsTextView(instruction: "Cook the Eggs")
-        createInstructionsTextView(instruction: "Defrost the Bacon")
-        createInstructionsTextView(instruction: "Slice the Ham")
-//        print(instructionsTextViewArray)
         
+        // Create a text view for every instruction in the instructions array
+        for instruction in instructions {
+            createInstructionsTextView(instruction: instruction)
+        }
     }
     
     func createInstructionsTextView(instruction: String) {
@@ -168,8 +190,6 @@ class RecipeViewController: UIViewController {
             })
         } else {
             textView.snp.makeConstraints({ (make) in
-                //make.top.equalTo(ingredientLabelsArray[ingredientLabelsArray.count - 1].snp.bottom).offset(4)
-                
                 make.top.equalTo(self.instructionsLabel.snp.bottom).offset(25 * CGFloat(instructionsTextViewArray.count - 1))
                 make.left.equalTo(self.instructionsLabel.snp.left)
                 make.right.equalTo(self.instructionsLabel.snp.right)
@@ -178,10 +198,10 @@ class RecipeViewController: UIViewController {
         }
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
