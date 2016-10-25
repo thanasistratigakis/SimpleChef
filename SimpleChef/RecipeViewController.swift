@@ -64,6 +64,8 @@ class RecipeViewController: UIViewController {
         super.viewDidLoad()
         addData()
         setupViews()
+        var recipes = Recipes()
+        print(recipes)
     }
     
     func addData() {

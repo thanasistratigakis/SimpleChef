@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		164591021DC0070900BF1D27 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164591011DC0070900BF1D27 /* Recipes.swift */; };
 		259FBA05FC3B6E0A16F34DDE /* Pods_SimpleChef.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C8841134D0E30E1CC2CC39 /* Pods_SimpleChef.framework */; };
 		8A5DD56E884703C2442F7ECA /* Pods_SimpleChefUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858F7A90BF48DA0E84506E64 /* Pods_SimpleChefUITests.framework */; };
 		ED52561E1DB3427900A89501 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED52561D1DB3427900A89501 /* SearchViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		164591011DC0070900BF1D27 /* Recipes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
 		1D4CCF77A44721180DD5BD54 /* Pods-SimpleChefTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleChefTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleChefTests/Pods-SimpleChefTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3D77F65865413F9190650EFD /* Pods-SimpleChefUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleChefUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleChefUITests/Pods-SimpleChefUITests.release.xcconfig"; sourceTree = "<group>"; };
 		53C8841134D0E30E1CC2CC39 /* Pods_SimpleChef.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleChef.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,12 +143,12 @@
 			children = (
 				ED64369F1DB03C5000D587F6 /* AppDelegate.swift */,
 				ED52561D1DB3427900A89501 /* SearchViewController.swift */,
+				164591011DC0070900BF1D27 /* Recipes.swift */,
 				ED996CE31DB6C803004EDF90 /* RecipeViewController.swift */,
 				ED6436A31DB03C5000D587F6 /* Main.storyboard */,
 				ED6436A61DB03C5000D587F6 /* Assets.xcassets */,
 				ED6436A81DB03C5000D587F6 /* LaunchScreen.storyboard */,
 				ED6436AB1DB03C5000D587F6 /* Info.plist */,
-				164590FF1DBFEC4600BF1D27 /* RecipeAPI.swift */,
 			);
 			path = SimpleChef;
 			sourceTree = "<group>";
@@ -453,10 +455,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				164591001DBFEC4600BF1D27 /* RecipeAPI.swift in Sources */,
 				ED52561E1DB3427900A89501 /* SearchViewController.swift in Sources */,
 				ED6436A01DB03C5000D587F6 /* AppDelegate.swift in Sources */,
 				ED996CE41DB6C803004EDF90 /* RecipeViewController.swift in Sources */,
+				164591021DC0070900BF1D27 /* Recipes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
