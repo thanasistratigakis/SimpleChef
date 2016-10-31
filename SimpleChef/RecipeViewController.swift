@@ -13,32 +13,45 @@ class RecipeViewController: UIViewController {
     // var recipe: Recipe?
     var ingredients: [String] = []
     var instructions: [String] = []
+    var time: String = "25"
+    
+    var ingredientsText: String = ""
+    var instructionsText: String = ""
     
     
     // Recipe Image UIElements
     let recipeImage: UIImageView = {
         let image = UIImageView()
-        image.backgroundColor = UIColor.blue
+        image.backgroundColor = UIColor.clear
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
+    }()
+    
+    let timeLabel: UILabel = {
+        let label  = UILabel()
+        label.textColor = UIColor.black
+        label.text = "30min"
+        label.textAlignment = NSTextAlignment.right
+        label.font = UIFont.italicSystemFont(ofSize: 20)
+        return label
     }()
     
     // Recipe Information UIElements
     let informationView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.green
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     let ingredientsView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.yellow
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     let instructionsView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.purple
+        view.backgroundColor = UIColor.clear
         return view
     }()
     
@@ -51,9 +64,9 @@ class RecipeViewController: UIViewController {
     
     let ingredientsContentLabel: UILabel = {
         let label = UILabel()
-        label.text = "Lots and lots of text here"
+        label.text = "Sample text"
         label.textColor = UIColor.black
-        label.backgroundColor = UIColor.orange
+        label.backgroundColor = UIColor.clear
         label.lineBreakMode = .byWordWrapping // or NSLineBreakMode.ByWordWrapping
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +84,7 @@ class RecipeViewController: UIViewController {
         let label = UILabel()
         label.text = "Lots and lots of text here \nand more and longer lines\nand more and longer lines"
         label.textColor = UIColor.black
-        label.backgroundColor = UIColor.green
+        label.backgroundColor = UIColor.clear
         label.lineBreakMode = .byWordWrapping // or NSLineBreakMode.ByWordWrapping
         label.numberOfLines = 0
 
@@ -87,10 +100,10 @@ class RecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.8585246801, green: 0.3874579072, blue: 0.4668917656, alpha: 1)
+        self.view.backgroundColor = UIColor.white
         addData()
-        setupViewsNew()
-        var recipes = Recipes()
-        print(recipes)
+        setupViews()
     }
     
     func addData() {
@@ -103,9 +116,23 @@ class RecipeViewController: UIViewController {
         instructions.append("Fry the bacon")
         instructions.append("Set oven to 400° and then add eggs and then wash all of that")
         instructions.append("Mix all the dry ingredients then wet")
+        
+        
+        for ingredient in ingredients {
+            ingredientsText += ingredient + "\n"
+        }
+        for instruction in instructions {
+            instructionsText += instruction + "\n"
+        }
+        
+        timeLabel.text = time + "min"
+        ingredientsContentLabel.text = ingredientsText
+        instructionsContentLabel.text = instructionsText
+        self.title = "Chicken"
+        
     }
     
-    func setupViewsNew() {
+    func setupViews() {
         // Recipe Image
         self.view.addSubview(recipeImage)
         recipeImage.snp.makeConstraints { (make) in
@@ -113,6 +140,12 @@ class RecipeViewController: UIViewController {
             make.left.equalTo(self.view.snp.left)
             make.right.equalTo(self.view.snp.right)
             make.height.equalTo(self.view.frame.width * CGFloat(0.7))
+        }
+        
+        self.view.addSubview(self.timeLabel)
+        timeLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.recipeImage.snp.bottom).offset(-8)
+            make.right.equalTo(self.view.snp.right).offset(-8)
         }
         
         // Information Container View
@@ -130,9 +163,8 @@ class RecipeViewController: UIViewController {
             make.top.equalTo(informationView.snp.top)
             make.left.equalTo(informationView.snp.left)
             make.right.equalTo(informationView.snp.right)
-            make.height.equalTo(150)
         }
-        setupIngredientsViewNew()
+        setupIngredientsView()
         
 
         // Instructions View
@@ -141,12 +173,11 @@ class RecipeViewController: UIViewController {
             make.top.equalTo(ingredientsView.snp.bottom)
             make.left.equalTo(informationView.snp.left)
             make.right.equalTo(informationView.snp.right)
-            make.height.equalTo(150)
         }
-        setupInstructionsViewNew()
+        setupInstructionsView()
     }
     
-    func setupIngredientsViewNew() {
+    func setupIngredientsView() {
         self.ingredientsView.addSubview(ingredientsLabel)
         ingredientsLabel.snp.makeConstraints { (make) in
             make.top.equalTo(ingredientsView.snp.top).offset(8)
@@ -163,7 +194,7 @@ class RecipeViewController: UIViewController {
         }
     }
     
-    func setupInstructionsViewNew() {
+    func setupInstructionsView() {
         self.instructionsView.addSubview(instructionsLabel)
         instructionsLabel.snp.makeConstraints { (make) in
             make.top.equalTo(instructionsView.snp.top).offset(8)
@@ -179,10 +210,6 @@ class RecipeViewController: UIViewController {
             make.bottom.equalTo(instructionsView.snp.bottom).offset(-8)
         }
     }
-
-    
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
