@@ -129,7 +129,6 @@ class RecipeViewController: UIViewController {
             make.top.equalTo(informationView.snp.top)
             make.left.equalTo(informationView.snp.left)
             make.right.equalTo(informationView.snp.right)
-            make.height.equalTo(150)
         }
         setupIngredientsViewNew()
         
@@ -140,7 +139,6 @@ class RecipeViewController: UIViewController {
             make.top.equalTo(ingredientsView.snp.bottom)
             make.left.equalTo(informationView.snp.left)
             make.right.equalTo(informationView.snp.right)
-            make.height.equalTo(150)
         }
         setupInstructionsViewNew()
     }
