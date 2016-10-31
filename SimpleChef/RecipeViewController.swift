@@ -51,7 +51,7 @@ class RecipeViewController: UIViewController {
     
     let ingredientsContentLabel: UILabel = {
         let label = UILabel()
-        label.text = "Lots and lots of texat here"
+        label.text = "Lots and lots of text here"
         label.textColor = UIColor.black
         label.backgroundColor = UIColor.orange
         label.lineBreakMode = .byWordWrapping // or NSLineBreakMode.ByWordWrapping
@@ -88,7 +88,7 @@ class RecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addData()
-        setupViews()
+        setupViewsNew()
         var recipes = Recipes()
         print(recipes)
     }

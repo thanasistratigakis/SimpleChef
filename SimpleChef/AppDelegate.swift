@@ -25,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let window = window {
             let NC = UINavigationController()
             NC.navigationBar.isTranslucent = false
-            let mainController = RecipeViewController()
+            let mainController = SearchViewController()
+//            let mainController = RecipeViewController()
             NC.addChildViewController(mainController)
             window.rootViewController = NC
             window.makeKeyAndVisible()
