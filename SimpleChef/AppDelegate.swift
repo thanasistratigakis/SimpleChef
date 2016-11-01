@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let NC = UINavigationController()
             NC.navigationBar.isTranslucent = false
             let mainController = RecipeViewController()
+            NC.navigationBar.barTintColor = #colorLiteral(red: 0.8585246801, green: 0.3874579072, blue: 0.4668917656, alpha: 1)
             NC.addChildViewController(mainController)
             window.rootViewController = NC
             window.makeKeyAndVisible()
