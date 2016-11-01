@@ -23,15 +23,14 @@ class SearchViewController: UIViewController {
         search.searchBar.keyboardAppearance = .light
         search.searchBar.placeholder = "Search"
         search.searchBar.isHidden = false
-        search.isActive = true
+        search.isActive = false
         
         return search
     }()
     
-    lazy var searchResultsTableView: UITableView = {
+    var searchResultsTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.tableHeaderView = self.searchController.searchBar
         return tableView
     }()
 
@@ -46,8 +45,7 @@ class SearchViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
-        
-        self.navigationItem.titleView = self.searchController.searchBar
+        self.searchResultsTableView.tableHeaderView = self.searchController.searchBar
     }
     
     func setupTableView() {
