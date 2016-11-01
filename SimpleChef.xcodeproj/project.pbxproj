@@ -10,6 +10,7 @@
 		164591021DC0070900BF1D27 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164591011DC0070900BF1D27 /* Recipes.swift */; };
 		259FBA05FC3B6E0A16F34DDE /* Pods_SimpleChef.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C8841134D0E30E1CC2CC39 /* Pods_SimpleChef.framework */; };
 		8A5DD56E884703C2442F7ECA /* Pods_SimpleChefUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858F7A90BF48DA0E84506E64 /* Pods_SimpleChefUITests.framework */; };
+		C43A92BD1DC1CF3B004EDA91 /* API Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A92BC1DC1CF3B004EDA91 /* API Helper.swift */; };
 		ED52561E1DB3427900A89501 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED52561D1DB3427900A89501 /* SearchViewController.swift */; };
 		ED6436A01DB03C5000D587F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED64369F1DB03C5000D587F6 /* AppDelegate.swift */; };
 		ED6436A51DB03C5000D587F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED6436A31DB03C5000D587F6 /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 		6A1D073F13AD02694113D899 /* Pods_SimpleChefTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleChefTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AE447D81FD1C96454F24FC4 /* Pods-SimpleChef.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleChef.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleChef/Pods-SimpleChef.release.xcconfig"; sourceTree = "<group>"; };
 		858F7A90BF48DA0E84506E64 /* Pods_SimpleChefUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleChefUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C43A92BC1DC1CF3B004EDA91 /* API Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API Helper.swift"; sourceTree = "<group>"; };
 		D4993CC7C10893DA5B1CC73F /* Pods-SimpleChefUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleChefUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleChefUITests/Pods-SimpleChefUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB1B924A5504C3160281CB27 /* Pods-SimpleChef.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleChef.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleChef/Pods-SimpleChef.debug.xcconfig"; sourceTree = "<group>"; };
 		ED52561D1DB3427900A89501 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				ED64369F1DB03C5000D587F6 /* AppDelegate.swift */,
+				C43A92BC1DC1CF3B004EDA91 /* API Helper.swift */,
 				ED52561D1DB3427900A89501 /* SearchViewController.swift */,
 				164591011DC0070900BF1D27 /* Recipes.swift */,
 				ED996CE31DB6C803004EDF90 /* RecipeViewController.swift */,
@@ -400,7 +403,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		CA59A0A651FB4E053D3CAE35 /* [CP] Check Pods Manifest.lock */ = {
@@ -415,7 +418,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E2D0A8C115D14C8564D2FAF2 /* [CP] Check Pods Manifest.lock */ = {
@@ -430,7 +433,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E375CE65C092222084F40C39 /* [CP] Embed Pods Frameworks */ = {
@@ -455,6 +458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C43A92BD1DC1CF3B004EDA91 /* API Helper.swift in Sources */,
 				ED52561E1DB3427900A89501 /* SearchViewController.swift in Sources */,
 				ED6436A01DB03C5000D587F6 /* AppDelegate.swift in Sources */,
 				ED996CE41DB6C803004EDF90 /* RecipeViewController.swift in Sources */,
