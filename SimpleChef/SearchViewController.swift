@@ -45,8 +45,7 @@ class SearchViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
-        
-        self.navigationItem.titleView = self.searchController.searchBar
+        self.searchResultsTableView.tableHeaderView = self.searchController.searchBar
     }
     
     func setupTableView() {
