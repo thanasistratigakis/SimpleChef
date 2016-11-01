@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 protocol SearchResultProtocol {
-    func dataLoaded(resultArray: [SearchResults])
+    func dataLoaded(resultArray: [SmallRecipe])
 }
 
 protocol RecipeInfoProtocol{
@@ -19,7 +19,7 @@ protocol RecipeInfoProtocol{
 
 class APIHelper {
     
-    var APIkey = "EW5WjiJFqDmshK42DVEXJ255dL5ap1nWqePjsn0yWAsFv5plAc"
+    var APIkey = ""
     var delegate: SearchResultProtocol?
     var infoDelegate: RecipeInfoProtocol?
     
@@ -28,7 +28,7 @@ class APIHelper {
         let url = URL(string: urlString)
         let mutableRequest = NSMutableURLRequest(url: url!)
         mutableRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-        mutableRequest.setValue("EW5WjiJFqDmshK42DVEXJ255dL5ap1nWqePjsn0yWAsFv5plAc", forHTTPHeaderField: "X-Mashape-Key")
+        mutableRequest.setValue(APIkey, forHTTPHeaderField: "X-Mashape-Key")
         
         
         let task = URLSession.shared.dataTask(with: mutableRequest as URLRequest, completionHandler: { data, response, error -> Void in
@@ -41,16 +41,19 @@ class APIHelper {
                     APIHelper.getRecipeById(id: result.recipeId, stepBreakdown: false, completion: { tempJson in
                         if let json = tempJson{
                             var ingredientsList: [String] = []
-                            var resultArray: [SearchResults] = []
+                            var resultArray: [SmallRecipe] = []
                             let steps = json[0]["steps"].array
                             let ingredientsArray = steps?[0]["ingredients"].array
                             
-                            for ingredient in ingredientsArray!{
-                                ingredientsList.append(ingredient["name"].string!)
+                            if let ingredientsArray = ingredientsArray {
+                                for ingredient in ingredientsArray{
+                                    ingredientsList.append(ingredient["name"].string!)
+                                }
                             }
                             
                             if ingredientsList.count <= 5 {
-                                resultArray.append(result)
+                                let smallRecipe = SmallRecipe(id: result.recipeId, name: result.recipeName, imageUrl: result.imageUrl, readyInMinutes: result.readyInMinutes, ingredientList: ingredientsList)
+                                resultArray.append(smallRecipe)
                                 if let delegate = self.delegate {
                                     delegate.dataLoaded(resultArray: resultArray)
                                 }
@@ -72,8 +75,9 @@ class APIHelper {
                 let recipeId = recipe["id"].int
                 let recipeName = recipe["title"].string
                 let imageUrl = recipe["image"].string
+                let readyInMinutes = recipe["readyInMinutes"].int
                 
-                resultArray.append(SearchResults(id: String(recipeId!), name: recipeName!, imageUrl: imageUrl!))
+                resultArray.append(SearchResults(id: String(recipeId!), name: recipeName!, imageUrl: imageUrl!, readyInMinutes: readyInMinutes!))
             }
         }
         return resultArray
@@ -85,7 +89,7 @@ class APIHelper {
         let session = URLSession.shared
         let url = URL(string: urlString)
         let mutableRequest = NSMutableURLRequest(url: url!)
-        mutableRequest.setValue("EW5WjiJFqDmshK42DVEXJ255dL5ap1nWqePjsn0yWAsFv5plAc", forHTTPHeaderField: "X-Mashape-Key")
+        mutableRequest.setValue("", forHTTPHeaderField: "X-Mashape-Key")
         
         let task = session.dataTask(with: mutableRequest as URLRequest, completionHandler: { data, response, error -> Void in
             if let actualData = data {
@@ -112,55 +116,6 @@ class APIHelper {
                 }
             }})
     }
-//    static func checkIngredientList(recipeId: String, completion: @escaping (_ bool: Bool?, _ ingredientList: [String]?) -> Void){
-//        getRecipeById(id: recipeId, stepBreakdown: false, completion: { tempJson -> Void in
-//            if let json = tempJson{
-//                var result: Bool
-//                var ingredientsList: [String] = []
-//                let steps = json[0]["steps"].array
-//                let ingredientsArray = steps?[0]["ingredients"].array
-//                
-//                for ingredient in ingredientsArray!{
-//                    ingredientsList.append(ingredient["name"].string!)
-//                }
-//                
-//                if ingredientsList.count <= 5 {
-//                    result = true
-//                } else {
-//                    result = false
-//                }
-//                completion(result, ingredientsList)
-//            }
-//        })
-//    }
-    
-//    static func checkEquipmentList(recipeId: String) -> (Bool, [String]?){
-//        var result: Bool = true
-//        var equipmentList: [String]
-//        
-//        getRecipeById(id: recipeId, stepBreakdown: false, completion: { tempJson -> Void in
-//            if let json = tempJson{
-//                let steps = json[0]["steps"].array
-//                let equipmentArray = steps?[0]["equipment"].array
-//                var equipmentList: [String] = []
-//                
-//                for equipment in equipmentArray!{
-//                    equipmentList.append(equipment["name"].string!)
-//                }
-//            }})
-//        return (result, equipmentList)
-//    }
-    
-//    static func getInstructions(recipeId: String){
-//        var instructionArray: [String] = []
-//        getRecipeById(id: recipeId, stepBreakdown: true, completion: { tempJson -> Void in
-//            if let json = tempJson{
-//                let steps = json[0]["steps"].array
-//                for step in steps! {
-//                    instructionArray.append(step["step"].string!)
-//                }
-//            }})
-//    }
     
     static func loadImage(path: String) -> UIImage{
         let url = URL(string: path)!
@@ -181,13 +136,31 @@ struct SearchResults{
     let recipeId: String
     let recipeName: String
     let imageUrl: String
+    let readyInMinutes: Int
     
     let baseImageUrl = "https://spoonacular.com/recipeImages/"
     
-    init(id: String, name: String, imageUrl: String) {
+    init(id: String, name: String, imageUrl: String, readyInMinutes: Int) {
         self.recipeId = id
         self.recipeName = name
         self.imageUrl = baseImageUrl + imageUrl
+        self.readyInMinutes = readyInMinutes
+    }
+}
+
+struct SmallRecipe{
+    let recipeId: String
+    let recipeName: String
+    let imageUrl: String
+    let readyInMinutes: Int
+    let ingredientList: [String]
+    
+    init(id: String, name: String, imageUrl: String, readyInMinutes: Int, ingredientList: [String]) {
+        self.recipeId = id
+        self.recipeName = name
+        self.imageUrl = imageUrl
+        self.readyInMinutes = readyInMinutes
+        self.ingredientList = ingredientList
     }
 }
 
