@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class RecipeViewController: UIViewController, RecipeInfoProtocol {
     
@@ -30,6 +31,8 @@ class RecipeViewController: UIViewController, RecipeInfoProtocol {
         let image = UIImageView()
         image.backgroundColor = UIColor.clear
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         return image
     }()
     
@@ -108,15 +111,53 @@ class RecipeViewController: UIViewController, RecipeInfoProtocol {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.8585246801, green: 0.3874579072, blue: 0.4668917656, alpha: 1)
         self.view.backgroundColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
         addData()
         setupViews()
         apiHelper.infoDelegate = self
-        // apiHelper.getStepByStep(id: searchResults[0].recipeId, name: searchResults[0].recipeName, imgUrl: searchResults[0].imageUrl)
+        apiHelper.getStepByStep(id: (smallRecipe?.recipeId)!, name: (smallRecipe?.recipeName)!, imgUrl: (smallRecipe?.imageUrl)!)
+        
+
+        //apiHelper.getStepByStep(id: (smallRecipe?.recipeId)!, name: (smallRecipe?.recipeName)!, imgUrl: (smallRecipe?.imageUrl)!)
     }
     
     func recipeLoaded(instructionArray: [String]) {
          recipe = Recipes(recipeId: (smallRecipe?.recipeId)!, recipeName: (smallRecipe?.recipeName)!, ingredientArray: (smallRecipe?.ingredientList)!, instructionArray: instructionArray, readyInMinutes: (smallRecipe?.readyInMinutes)!, recipeImageUrl: (smallRecipe?.imageUrl)!)
-        // Reload view
+        
+        updateData()
+    }
+    
+    func updateData() {
+        
+        if let urlString = recipe?.recipeImageUrl, let url = URL(string: urlString) {
+            recipeImage.af_setImage(withURL: url)
+        }
+        
+        self.navigationItem.title = recipe?.recipeName
+        
+        
+        if let timeInt = recipe?.readyInMinutes {
+            timeLabel.text = String(timeInt) + "min"
+        }
+        
+        
+        //ingredients
+        var ingredientsToAdd = ""
+        for ingredient in (recipe?.ingredientsArray)! {
+            ingredientsToAdd += ingredient + "\n"
+        }
+        ingredientsContentLabel.text = ingredientsToAdd
+        
+        // instructions 
+        var instructionsToAdd = ""
+        for instruction in (recipe?.instructionsArray)! {
+            instructionsToAdd += instruction + "\n"
+        }
+        instructionsContentLabel.text = instructionsToAdd
     }
     
     func addData() {
@@ -157,7 +198,7 @@ class RecipeViewController: UIViewController, RecipeInfoProtocol {
         
         self.view.addSubview(self.timeLabel)
         timeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.recipeImage.snp.bottom).offset(-8)
+            make.top.equalTo(self.recipeImage.snp.bottom).offset(8)
             make.right.equalTo(self.view.snp.right).offset(-8)
         }
         
