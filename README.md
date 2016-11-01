@@ -8,3 +8,6 @@ Cooking can be time consuming, difficult, and can require a person to own severa
 ![Filter Recipe By Appliance](http://i.imgur.com/TYINMzr.png "Filter Recipe By Appliance")
 ![Detailed Recipe Information](http://imgur.com/JA5DCXa.png "Detailed Recipe Information")
 
+
+### Contributors: 
+Thanasi Stratigakis, Bob De Kort, Maribel Montejano
