@@ -23,14 +23,15 @@ class SearchViewController: UIViewController {
         search.searchBar.keyboardAppearance = .light
         search.searchBar.placeholder = "Search"
         search.searchBar.isHidden = false
-        search.isActive = false
+        search.isActive = true
         
         return search
     }()
     
-    var searchResultsTableView: UITableView = {
+    lazy var searchResultsTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.tableHeaderView = self.searchController.searchBar
         return tableView
     }()
 
