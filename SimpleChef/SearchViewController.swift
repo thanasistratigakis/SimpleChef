@@ -9,7 +9,10 @@
 import UIKit
 import SnapKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UISearchBarDelegate, SearchResultProtocol{
+    
+    var apiHelper = APIHelper()
+    var searchResults: [SmallRecipe] = []
     
     lazy var searchController: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
@@ -39,12 +42,17 @@ class SearchViewController: UIViewController {
         setupTableView()
         setupSearchController()
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.8585246801, green: 0.3874579072, blue: 0.4668917656, alpha: 1)
+        apiHelper.delegate = self
+        
     }
 
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
+        
+        //navigationController?.navigationItem.titleView = self.searchController.searchBar
+        //self.navigationItem.titleView = self.searchController.searchBar
         self.searchResultsTableView.tableHeaderView = self.searchController.searchBar
     }
     
@@ -57,6 +65,8 @@ class SearchViewController: UIViewController {
             make.right.equalTo(self.view.snp.right)
             make.bottom.equalTo(self.view.snp.bottom)
         }
+        searchResultsTableView.delegate = self
+        searchResultsTableView.dataSource = self
         
     }
     
@@ -65,6 +75,14 @@ class SearchViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        apiHelper.requestRecipes(query: searchBar.text!)
+    }
+    
+    func dataLoaded(resultArray: [SmallRecipe]) {
+        searchResults.append(contentsOf: resultArray)
+        searchResultsTableView.reloadData()
+    }
 
 }
 
@@ -75,20 +93,24 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        cell.textLabel?.text = searchResults[indexPath.row].recipeName
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // segue
+        let newView = RecipeViewController()
+        newView.smallRecipe = searchResults[indexPath.row]
+        navigationController?.pushViewController(newView, animated: true)
     }
 }
 
-extension SearchViewController: UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+extension SearchViewController: UISearchControllerDelegate, UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         //nothing

@@ -8,20 +8,13 @@
 
 import UIKit
 
-class RecipeViewController: UIViewController, SearchResultProtocol, RecipeInfoProtocol {
+class RecipeViewController: UIViewController, RecipeInfoProtocol {
     
     // delegate stuff
     var apiHelper = APIHelper()
-    var searchResults: [SearchResults] = [] {
-        didSet{
-            print(searchResults)
-        }
-    }
-    var instructionList: [String] = [] {
-        didSet{
-            print(instructionList)
-        }
-    }
+    var smallRecipe: SmallRecipe?
+    var recipe: Recipes?
+    
     
     // var recipe: Recipe?
     var ingredients: [String] = []
@@ -117,21 +110,13 @@ class RecipeViewController: UIViewController, SearchResultProtocol, RecipeInfoPr
         self.view.backgroundColor = UIColor.white
         addData()
         setupViews()
-        let str = "spaghetti"
-        apiHelper.delegate = self
         apiHelper.infoDelegate = self
-        apiHelper.requestRecipes(query: str)
         // apiHelper.getStepByStep(id: searchResults[0].recipeId, name: searchResults[0].recipeName, imgUrl: searchResults[0].imageUrl)
     }
     
-    // delegate functions
-    func dataLoaded(resultArray: [SearchResults]) {
-        searchResults.append(contentsOf: resultArray)
-        apiHelper.getStepByStep(id: searchResults[0].recipeId, name: searchResults[0].recipeName, imgUrl: searchResults[0].imageUrl)
-    }
-    
     func recipeLoaded(instructionArray: [String]) {
-        instructionList = instructionArray
+         recipe = Recipes(recipeId: (smallRecipe?.recipeId)!, recipeName: (smallRecipe?.recipeName)!, ingredientArray: (smallRecipe?.ingredientList)!, instructionArray: instructionArray, readyInMinutes: (smallRecipe?.readyInMinutes)!, recipeImageUrl: (smallRecipe?.imageUrl)!)
+        // Reload view
     }
     
     func addData() {
