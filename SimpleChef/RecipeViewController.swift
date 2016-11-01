@@ -8,7 +8,20 @@
 
 import UIKit
 
-class RecipeViewController: UIViewController {
+class RecipeViewController: UIViewController, SearchResultProtocol, RecipeInfoProtocol {
+    
+    // delegate stuff
+    var apiHelper = APIHelper()
+    var searchResults: [SearchResults] = [] {
+        didSet{
+            print(searchResults)
+        }
+    }
+    var instructionList: [String] = [] {
+        didSet{
+            print(instructionList)
+        }
+    }
     
     // var recipe: Recipe?
     var ingredients: [String] = []
@@ -104,6 +117,21 @@ class RecipeViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         addData()
         setupViews()
+        let str = "spaghetti"
+        apiHelper.delegate = self
+        apiHelper.infoDelegate = self
+        apiHelper.requestRecipes(query: str)
+        // apiHelper.getStepByStep(id: searchResults[0].recipeId, name: searchResults[0].recipeName, imgUrl: searchResults[0].imageUrl)
+    }
+    
+    // delegate functions
+    func dataLoaded(resultArray: [SearchResults]) {
+        searchResults.append(contentsOf: resultArray)
+        apiHelper.getStepByStep(id: searchResults[0].recipeId, name: searchResults[0].recipeName, imgUrl: searchResults[0].imageUrl)
+    }
+    
+    func recipeLoaded(instructionArray: [String]) {
+        instructionList = instructionArray
     }
     
     func addData() {
