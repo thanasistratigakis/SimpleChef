@@ -19,7 +19,7 @@ protocol RecipeInfoProtocol{
 
 class APIHelper {
     
-    var APIkey = ""
+    var APIkey = "EW5WjiJFqDmshK42DVEXJ255dL5ap1nWqePjsn0yWAsFv5plAc"
     var delegate: SearchResultProtocol?
     var infoDelegate: RecipeInfoProtocol?
     
@@ -89,7 +89,7 @@ class APIHelper {
         let session = URLSession.shared
         let url = URL(string: urlString)
         let mutableRequest = NSMutableURLRequest(url: url!)
-        mutableRequest.setValue("", forHTTPHeaderField: "X-Mashape-Key")
+        mutableRequest.setValue("EW5WjiJFqDmshK42DVEXJ255dL5ap1nWqePjsn0yWAsFv5plAc", forHTTPHeaderField: "X-Mashape-Key")
         
         let task = session.dataTask(with: mutableRequest as URLRequest, completionHandler: { data, response, error -> Void in
             if let actualData = data {
@@ -108,11 +108,14 @@ class APIHelper {
             if let json = tempJson{
                 var instructionArray: [String] = []
                 let steps = json[0]["steps"].array
-                for step in steps! {
+                
+                if let steps = steps {
+                for step in steps {
                     instructionArray.append(step["step"].string!)
                 }
                 if let delegate = self.infoDelegate {
                     delegate.recipeLoaded(instructionArray: instructionArray)
+                }
                 }
             }})
     }

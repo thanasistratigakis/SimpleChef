@@ -22,18 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        if let window = window {
-            let NC = UINavigationController()
-            NC.navigationBar.isTranslucent = false
 
-            let mainController = SearchViewController()
-//            let mainController = RecipeViewController()
-            NC.navigationBar.barTintColor = #colorLiteral(red: 0.8585246801, green: 0.3874579072, blue: 0.4668917656, alpha: 1)
-            NC.addChildViewController(mainController)
-            window.rootViewController = NC
-            window.makeKeyAndVisible()
-        }
-        
         
         // Override point for customization after application launch.
         return true

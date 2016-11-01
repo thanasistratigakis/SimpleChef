@@ -52,8 +52,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, SearchResultP
         definesPresentationContext = true
         
         //navigationController?.navigationItem.titleView = self.searchController.searchBar
-        //self.navigationItem.titleView = self.searchController.searchBar
-        self.searchResultsTableView.tableHeaderView = self.searchController.searchBar
+        self.navigationItem.titleView = self.searchController.searchBar
+        //self.searchResultsTableView.tableHeaderView = self.searchController.searchBar
     }
     
     func setupTableView() {
@@ -76,10 +76,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, SearchResultP
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchResults = []
+        searchResultsTableView.reloadData()
         apiHelper.requestRecipes(query: searchBar.text!)
     }
     
     func dataLoaded(resultArray: [SmallRecipe]) {
+        //searchResults = resultArray
         searchResults.append(contentsOf: resultArray)
         searchResultsTableView.reloadData()
     }
